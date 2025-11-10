@@ -16,18 +16,28 @@ type Users struct {
 	Email     string `gorm:"type:varchar(125);not null"`
 	Name      string `gorm:"type:varchar(125);not null"`
 	Password  string `gorm:"type:varchar(125);not null"`
+	PostCount uint64 `gorm:"column:post_count"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
 
 type Posts struct {
-	ID        uint64
-	Title     string `gorm:"type:varchar(255);not null"`
-	Content   string `gorm:"type:text;not null"`
-	UserId    uint64 `gorm:"column:user_id"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	ID            uint64
+	Title         string `gorm:"type:varchar(255);not null"`
+	Content       string `gorm:"type:text;not null"`
+	UserId        uint64 `gorm:"column:user_id"`
+	CommentCount  uint64 `gorm:"column:comment_count"`
+	CommentStatus string `gorm:"type:varchar(50);default:'no_comments'"`
+	CreatedAt     time.Time
+	UpdatedAt     time.Time
 }
+
+const (
+	// 有评论
+	CommentStatusNoComments = "no_comments"
+	// 无评论
+	CommentStatusHasComments = "has_comments"
+)
 
 type Comments struct {
 	ID        uint64
@@ -154,9 +164,136 @@ func QueryPostsAndContnetByUserId(db *gorm.DB, name string) ([]PostWithComments,
 }
 
 // 编写Go代码，使用Gorm查询评论数量最多的文章信息。
-func QueryPostByCommentsMax(db *gorm.DB) Posts {
+func QueryPostByCommentsMost(db *gorm.DB) (*Posts, int, error) {
+
+	var post Posts = Posts{}
+	var comments Comments = Comments{}
+
+	var result struct {
+		PostId       uint64
+		CommentCount int
+	}
+
 	// 先查到评论数量最多的文章ID
+	err := db.Model(&comments).
+		Select("post_id, Count(*) as comment_count").
+		Group("post_id").
+		Order("comment_count DESC").
+		Limit(1).
+		Scan(&result).Error
+	if err != nil {
+		return nil, 0, err
+	}
 
 	// 再根据文章ID查到文章信息
+	err = db.Where("id = ?", result.PostId).First(&post).Error
+	if err != nil {
+		return nil, 0, err
+	}
+	return &post, result.CommentCount, nil
+}
+
+// 为 Post 模型添加一个钩子函数，在文章创建时自动更新用户的文章数量统计字段。
+func (p *Posts) AfterCreate(tx *gorm.DB) error {
+	err := tx.Model(&Users{}).
+		Where("id = ?", p.UserId).
+		Update("post_count", gorm.Expr("post_count + ?", 1)).Error
+
+	return err
+}
+
+// 为 Comment 模型添加一个钩子函数，在评论删除时检查文章的评论数量，如果评论数量为 0，则更新文章的评论状态为 "无评论"。
+func (c *Comments) AfterDelete(tx *gorm.DB) error {
+	// 检查该文装的评论数量
+	var commentCount int64
+	err := tx.Model(&Comments{}).Where("post_id = ?", c.PostId).Count(&commentCount).Error
+	if err != nil {
+		return err
+	}
+	// 如果评论数量为0 更新文章评论状态为“无评论”
+	if commentCount == 0 {
+		err = tx.Model(&Posts{}).Where("id = ?", c.PostId).Update("comment_status", CommentStatusNoComments).Error
+	}
+	return err
+}
+
+func InitBlogTable(db *gorm.DB) {
+	db.AutoMigrate(&Users{})
+	db.AutoMigrate(&Posts{})
+	db.AutoMigrate(&Comments{})
+}
+
+func InitBlogsData(db *gorm.DB) {
+	// 插入User数据
+	var users []Users = []Users{
+		{
+			ID:       1,
+			Email:    "zhangsan@gmail.com",
+			Name:     "张三",
+			Password: "zhangsan_000",
+		},
+		{
+			ID:       2,
+			Email:    "lisi@gmail.com",
+			Name:     "李四",
+			Password: "lisi_000",
+		},
+	}
+
+	db.Create(&users)
+
+	// 插入 文章数据
+	var post []Posts = []Posts{
+		Posts{
+			ID:      1,
+			Title:   "1",
+			Content: "111111",
+			UserId:  1,
+		},
+		Posts{
+			ID:      2,
+			Title:   "2",
+			Content: "222222",
+			UserId:  1,
+		},
+		Posts{
+			ID:      3,
+			Title:   "3",
+			Content: "333333",
+			UserId:  2,
+		},
+	}
+
+	db.Create(&post)
+
+	// 插入评论
+	comments := []Comments{
+		{
+			ID:      1,
+			Content: "1 good",
+			UserId:  1,
+			PostId:  1,
+		},
+		{
+			ID:      2,
+			Content: "1 一般",
+			UserId:  2,
+			PostId:  1,
+		},
+		{
+			ID:      3,
+			Content: "1 还不错",
+			UserId:  2,
+			PostId:  1,
+		},
+		{
+			ID:      4,
+			Content: "2 还ok",
+			UserId:  1,
+			PostId:  2,
+		},
+	}
+
+	db.Create(&comments)
 
 }

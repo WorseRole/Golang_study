@@ -7,8 +7,8 @@ import (
 	"log"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/shopspring/decimal"
 
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
@@ -16,13 +16,13 @@ func main() {
 	//连接数据库：如果有密码，使用您的密码
 	dsn := "root:root@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local"
 
-	// db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-	// if err != nil {
-	// 	log.Printf("连接失败，%v \n", err)
-	// 	log.Println("提示: 可以尝试其他连接方式")
-	// 	return
-	// }
-	// log.Println("GORM + MYSQL 连接成功！")
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if err != nil {
+		log.Printf("连接失败，%v \n", err)
+		log.Println("提示: 可以尝试其他连接方式")
+		return
+	}
+	log.Println("GORM + MYSQL 连接成功！")
 	/*
 	   *
 
@@ -131,26 +131,54 @@ func main() {
 	**/
 
 	//
-	db, err := studygorm.InitBookDB(dsn)
-	if err != nil {
-		log.Printf("数据库连接失败:%v \n", err)
-		return
-	}
+	// db, err := studygorm.InitBookDB(dsn)
+	// if err != nil {
+	// 	log.Printf("数据库连接失败:%v \n", err)
+	// 	return
+	// }
 	// err = studygorm.InitBookTableAndTestData(db)
 	// if err != nil {
 	// 	log.Printf("初始化数据失败:%v \n", err)
 	// 	return
 	// }
-	price, _ := decimal.NewFromString("50.00")
+	// price, _ := decimal.NewFromString("50.00")
+	// books, err := studygorm.QueryBookByPrice(db, price)
+	// if err != nil {
+	// 	log.Printf("数据库根据价格查询大于：%s 查询失败:%v \n", price, err)
+	// 	return
+	// }
+	// for _, book := range books {
+	// 	fmt.Printf("book:(ID: %d, Author: %s, Title: %s, Price: %v )\n", book.ID, book.Author, book.Title, book.Price)
+	// }
 
-	books, err := studygorm.QueryBookByPrice(db, price)
+	// blog
+	// studygorm.InitBlogTable(db)
+	// studygorm.InitBlogsData(db)
+	postWithComments, err := studygorm.QueryPostsAndContnetByUserId(db, "张三")
 	if err != nil {
-		log.Printf("数据库根据价格查询大于：%s 查询失败:%v \n", price, err)
+		log.Printf("查询失败了 :%v \n", err)
 		return
 	}
-	for _, book := range books {
-		fmt.Printf("book:(ID: %d, Author: %s, Title: %s, Price: %v )\n", book.ID, book.Author, book.Title, book.Price)
+	for _, postpostWithComment := range postWithComments {
+		fmt.Printf("下一个为: \n")
+
+		author := postpostWithComment.Author
+		post := postpostWithComment.Post
+		comments := postpostWithComment.Comments
+		fmt.Printf("文章作者ID: %d, 文章作者姓名:%s \n", author.ID, author.Name)
+		fmt.Printf("文章ID :%d, 文章标题: %s, 文章内容:%s \n", post.ID, post.Title, post.Content)
+		for _, comment := range comments {
+			fmt.Printf("文章评论者ID: %d, 评论者姓名: %s, 评论者内容%s \n", comment.Author.ID, comment.Author.Name, comment.Comment.Content)
+		}
 	}
+
+	post, count, err := studygorm.QueryPostByCommentsMost(db)
+	if err != nil {
+		log.Printf("查询最多评论数的文章失败 :%v", err)
+		return
+	}
+	fmt.Printf("最多评论数的文章title为: %s, 内容为: %s, 评论总数为: %d \n", post.Title, post.Content, count)
+
 }
 
 func InitAccounts(db *gorm.DB) {
