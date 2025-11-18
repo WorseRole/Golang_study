@@ -30,3 +30,8 @@ go.work.sum
 # Editor/IDE
 # .idea/
 # .vscode/
+
+# remix
+web3/artifacts/
+web3/.deps/
+web3/.states/
