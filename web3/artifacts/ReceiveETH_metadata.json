@@ -6,43 +6,40 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [],
-				"name": "num",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "sender",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
+				"anonymous": false,
 				"inputs": [
 					{
+						"indexed": false,
 						"internalType": "uint256",
-						"name": "_num",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "gas",
 						"type": "uint256"
 					}
 				],
-				"name": "setVars",
-				"outputs": [],
-				"stateMutability": "payable",
+				"name": "Log",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "getBalance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "receive"
 			}
 		],
 		"devdoc": {
@@ -58,7 +55,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/23_Delegatecall.sol": "C"
+			"contracts/20_SendETH.sol": "ReceiveETH"
 		},
 		"evmVersion": "prague",
 		"libraries": {},
@@ -72,12 +69,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/23_Delegatecall.sol": {
-			"keccak256": "0xe0e7d27ded34c9660a992043c3d97cdc8888db9ddeca6ab7cde008b85cb695f0",
+		"contracts/20_SendETH.sol": {
+			"keccak256": "0x6177e1bc95f26d3ea2090bba945703ed3463d83194584fc7a8ef8efb89810b1e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://5c6df3e9930cf3ce51204096a189ae923423f356ad2e56b924ffa294a34adc16",
-				"dweb:/ipfs/QmcSaZX3wFaUZPppebW34K1E114qXvgLti1D3RHFvGsCxu"
+				"bzz-raw://32876177ff9ed524b9740c3ce64462a423418446a866154a68059cba5afcbfd8",
+				"dweb:/ipfs/QmTH3BxdF6P1sdRa93B5RgH39wztoGf4RptZNjyhHe3eoK"
 			]
 		}
 	},

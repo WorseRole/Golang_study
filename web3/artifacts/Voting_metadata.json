@@ -9,41 +9,11 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_address",
+						"name": "adr",
 						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_num",
-						"type": "uint256"
 					}
 				],
-				"name": "callSetVars",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "_addr",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_num",
-						"type": "uint256"
-					}
-				],
-				"name": "delegatecallSetVars",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "num",
+				"name": "getVotes",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -55,13 +25,58 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "sender",
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "keys",
 				"outputs": [
 					{
 						"internalType": "address",
 						"name": "",
 						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "resetVotes",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "adr",
+						"type": "address"
+					}
+				],
+				"name": "vote",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "votes",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -81,7 +96,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/23_Delegatecall.sol": "B"
+			"contracts/Task1/Voting.sol": "Voting"
 		},
 		"evmVersion": "prague",
 		"libraries": {},
@@ -95,12 +110,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/23_Delegatecall.sol": {
-			"keccak256": "0xe0e7d27ded34c9660a992043c3d97cdc8888db9ddeca6ab7cde008b85cb695f0",
+		"contracts/Task1/Voting.sol": {
+			"keccak256": "0x160cec20230c7f95b6f06d66885bacb9f47a88ce7abce942fb42051672b762e9",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://5c6df3e9930cf3ce51204096a189ae923423f356ad2e56b924ffa294a34adc16",
-				"dweb:/ipfs/QmcSaZX3wFaUZPppebW34K1E114qXvgLti1D3RHFvGsCxu"
+				"bzz-raw://697ef08f2f3eca18575f24fb48db1e9b5041094f128945313e1ca1021ee3ef84",
+				"dweb:/ipfs/QmUCDanV33EvAph5KdCsRJmvXDtYsmU4D3MbMAZvCAYLj1"
 			]
 		}
 	},

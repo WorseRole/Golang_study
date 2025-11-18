@@ -6,8 +6,31 @@
 	"output": {
 		"abi": [
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "gas",
+						"type": "uint256"
+					}
+				],
+				"name": "Log",
+				"type": "event"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "fallback"
+			},
+			{
 				"inputs": [],
-				"name": "num",
+				"name": "getBalance",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -20,12 +43,12 @@
 			},
 			{
 				"inputs": [],
-				"name": "sender",
+				"name": "getX",
 				"outputs": [
 					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
+						"internalType": "uint256",
+						"name": "x",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -35,11 +58,11 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_num",
+						"name": "x",
 						"type": "uint256"
 					}
 				],
-				"name": "setVars",
+				"name": "setX",
 				"outputs": [],
 				"stateMutability": "payable",
 				"type": "function"
@@ -58,7 +81,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/23_Delegatecall.sol": "C"
+			"contracts/22_Call.sol": "OtherContract1"
 		},
 		"evmVersion": "prague",
 		"libraries": {},
@@ -72,12 +95,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/23_Delegatecall.sol": {
-			"keccak256": "0xe0e7d27ded34c9660a992043c3d97cdc8888db9ddeca6ab7cde008b85cb695f0",
+		"contracts/22_Call.sol": {
+			"keccak256": "0x7a0a166cc978023642c553787331b1ed1258cc86b9464ac5284e1e5a6a4c8772",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://5c6df3e9930cf3ce51204096a189ae923423f356ad2e56b924ffa294a34adc16",
-				"dweb:/ipfs/QmcSaZX3wFaUZPppebW34K1E114qXvgLti1D3RHFvGsCxu"
+				"bzz-raw://930982d67208ed10a4d9aa0ea9f24acd4b9070ce7354d37b2181c91e631e54f1",
+				"dweb:/ipfs/QmWA83f42zTrHL4EHa2BzouR1kH7S5p4PcjHYnjtK2W29N"
 			]
 		}
 	},

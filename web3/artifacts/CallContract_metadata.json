@@ -8,63 +8,75 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address",
-						"name": "_address",
+						"internalType": "contract OtherContract",
+						"name": "_Address",
 						"type": "address"
-					},
+					}
+				],
+				"name": "callGetX",
+				"outputs": [
 					{
 						"internalType": "uint256",
-						"name": "_num",
+						"name": "x",
 						"type": "uint256"
 					}
 				],
-				"name": "callSetVars",
-				"outputs": [],
-				"stateMutability": "payable",
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_addr",
+						"name": "_Address",
+						"type": "address"
+					}
+				],
+				"name": "callGetX2",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "x",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_Address",
 						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_num",
+						"name": "x",
 						"type": "uint256"
 					}
 				],
-				"name": "delegatecallSetVars",
+				"name": "callSetX",
 				"outputs": [],
-				"stateMutability": "payable",
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "num",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "sender",
-				"outputs": [
+				"inputs": [
 					{
 						"internalType": "address",
-						"name": "",
+						"name": "otherContract",
 						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "x",
+						"type": "uint256"
 					}
 				],
-				"stateMutability": "view",
+				"name": "setXTransferETH",
+				"outputs": [],
+				"stateMutability": "payable",
 				"type": "function"
 			}
 		],
@@ -81,7 +93,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/23_Delegatecall.sol": "B"
+			"contracts/21_CallContract.sol": "CallContract"
 		},
 		"evmVersion": "prague",
 		"libraries": {},
@@ -95,12 +107,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/23_Delegatecall.sol": {
-			"keccak256": "0xe0e7d27ded34c9660a992043c3d97cdc8888db9ddeca6ab7cde008b85cb695f0",
+		"contracts/21_CallContract.sol": {
+			"keccak256": "0xc913b1149d66722c480e5838bdec069431fb389e87b364dba714d2657e61de8b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://5c6df3e9930cf3ce51204096a189ae923423f356ad2e56b924ffa294a34adc16",
-				"dweb:/ipfs/QmcSaZX3wFaUZPppebW34K1E114qXvgLti1D3RHFvGsCxu"
+				"bzz-raw://da88ab883e6064862417197db812925c321335736a44208c9ee81d59ca1d561d",
+				"dweb:/ipfs/QmPYchcmdoTLo21qnbL8ZBsCqRVnj5L6hLDCBqnqcgKdvZ"
 			]
 		}
 	},
