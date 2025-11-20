@@ -42,10 +42,16 @@ contract MyERC20 {
     function symbol() public view returns(string memory) {
         return _symbol;
     }
-    // 
-    // function decimals() public view returns(uint8) {
-    //     return 18;
-    // }
+    // 显示和计算精度: 
+        // 18位小数是Ethereum 上最常见的标准（像 ETH、USDT、USDC 都用18）
+        // 这意味着 1 个完整的代币 = 10^18 个最小单位
+        // 例如 1.5 MTK 在合约内部存储为 1500000000000000000
+    // 钱包正确显示 
+        // 没有 decimals 函数的话 你的余额 1500000000000000000
+        // 有 decimal 函数的话，你的余额 1.5 MTK
+    function decimals() public pure returns(uint8) {
+        return 18;
+    }
     function totalSupply() public view returns(uint256) {
         return _totalSupply;
     }
