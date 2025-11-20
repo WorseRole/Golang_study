@@ -14,6 +14,11 @@ contract MyERC20 {
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Approval(address indexed owner, address indexed spender, uint256 value);
 
+    modifier onlyOwner() {
+        require(msg.sender == _owner, "ERC20: caller is not the owner");
+        _;
+    }
+
     // 状态变量
     // 账户余额映射
     mapping (address account => uint256) private _balances;
@@ -147,9 +152,9 @@ contract MyERC20 {
         }
     }
 
-    function mint(address account, uint256 value) external {
-        require(msg.sender == _owner, "Only owner can mint");
+    function mint(address account, uint256 value) external onlyOwner returns(bool) {
         _mint(account, value);
+        return true;
     }
 
     // 提供 mint 函数，允许合约所有者增发代币。     external 是否要用成 internal 或者判断一下
