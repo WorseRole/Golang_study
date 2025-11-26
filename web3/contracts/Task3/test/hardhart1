@@ -1,0 +1,37 @@
+require("@nomicfoundation/hardhat-toolbox");
+require("dotenv").config(); // 加载环境变量，安全地存储敏感信息[citation:5]
+
+module.exports = {
+  defaultNetwork: "hardhat", // 指定默认网络
+  solidity: {
+    version: "0.8.21",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+    },
+  },
+  networks: {
+    localhost: {
+      url: "http://127.0.0.1:8545",
+    },
+    sepolia: {
+      url: process.env.SEPOLIA_RPC_URL,
+      accounts: [process.env.PRIVATE_KEY],
+    },
+  },
+  etherscan: {
+    // 配置 Etherscan API Key 用于合约验证
+    apiKey: process.env.ETHERSCAN_API_KEY,
+  },
+  gasReporter: {
+    // 配置 Gas 消耗报告器
+    enabled: process.env.REPORT_GAS !== undefined,
+    currency: "USD",
+  },
+  mocha: {
+    // 设置测试超时时间
+    timeout: 40000,
+  },
+};
