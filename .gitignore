@@ -35,3 +35,6 @@ go.work.sum
 web3/artifacts/
 web3/.deps/
 web3/.states/
+
+
+*.DS_Store

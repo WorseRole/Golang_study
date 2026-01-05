@@ -3,7 +3,16 @@ require("@nomicfoundation/hardhat-toolbox");
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity: "0.8.21",
+  solidity: {
+    compilers: [
+      {
+        version: "0.8.21",
+      },
+      {
+        version: "0.8.22",
+      }
+    ]
+  },
   networks: {
     // Hardhat 内置的本地开发网络，启动后默认URL
     localhost: {

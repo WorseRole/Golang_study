@@ -2,6 +2,7 @@
   "name": "Task3",
   "version": "1.0.0",
   "devDependencies": {
+    "@chainlink/contracts": "^1.5.0",
     "@nomicfoundation/hardhat-chai-matchers": "^2.1.0",
     "@nomicfoundation/hardhat-ethers": "^3.1.2",
     "@nomicfoundation/hardhat-ignition": "^0.15.15",
@@ -18,5 +19,9 @@
     "hardhat-gas-reporter": "^2.3.0",
     "solidity-coverage": "^0.8.16",
     "typechain": "^8.3.2"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts-upgradeable": "^5.4.0",
+    "@openzeppelin/hardhat-upgrades": "^3.9.1"
   }
 }
