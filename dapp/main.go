@@ -27,7 +27,8 @@ func main() {
 	// task1.FindTrasaction()
 	// task1.FindData()
 	// task1.CreateWallet()
-	task1.ETHTransfer()
+	// task1.ETHTransfer()
+	task1.TokenTransfer()
 
 	/*
 	   // 1. 连接到Sepolia网络
