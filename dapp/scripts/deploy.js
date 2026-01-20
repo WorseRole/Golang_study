@@ -17,6 +17,7 @@ async function main() {
   console.log("MyToken 合约部署成功！地址:", contractAddress);
   console.log("合约所有者（initialOwner）:", initialOwner);
 
+
   // MyToken 合约部署成功！
   // 地址: 0xb38dde2F3D6eD620D80E5608f0343e2c97d74229
   // 合约所有者（initialOwner）: 0x14503cecD68735b3E02b9Ae849FE5e29A9Bf7229
